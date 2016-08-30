@@ -11,7 +11,8 @@ import java.io.IOException;
 @WebServlet("/TestServlet")
 public class TestServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        System.out.println("Test");
+        System.out.printf(request.getParameter("username"));
+        System.out.printf(request.getParameter("password"));
 
     }
 
