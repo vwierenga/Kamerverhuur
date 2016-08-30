@@ -17,5 +17,8 @@ public class RegisterServlet extends HttpServlet {
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         System.out.println("register get");
+        System.out.println(request.getParameter("gebruikersnaam"));
+        System.out.println(request.getParameter("wachtwoord"));
+        System.out.println(request.getParameter("type"));
     }
 }
