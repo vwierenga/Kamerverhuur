@@ -11,4 +11,11 @@
         <servlet-name>TestServlet</servlet-name>
         <url-pattern>/TestServlet</url-pattern>  <!-- This is the URL of the servlet. -->
     </servlet-mapping>
+    <servlet>
+        <servlet-name>RegisterServlet</servlet-name>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>RegisterServlet</servlet-name>
+        <url-pattern>registerURL</url-pattern>
+    </servlet-mapping>
 </web-app>
