@@ -23,10 +23,13 @@ public class LoginServlet extends HttpServlet {
         User user = findUser(username);
         if (user == null) {
             System.out.println("model.User not found");
+            response.sendRedirect("fouteinlog.html");
         } else {
             System.out.println(user.getUsersname() + " found");
             if (checkPassword(user, password)) {
-
+                //ingeloggen
+            } else {
+                response.sendRedirect("fouteinlog.html");
             }
         }
     }
