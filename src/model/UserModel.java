@@ -22,8 +22,8 @@ public class UserModel {
         return new ArrayList<>(users);
     }
 
-    public void addUser(User gebruiker) {
-        users.add(gebruiker);
+    public void addUser(User user) {
+        users.add(user);
     }
 
     private void createTestUsers() {

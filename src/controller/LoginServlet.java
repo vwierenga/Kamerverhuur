@@ -1,5 +1,8 @@
 package controller;
 
+import model.User;
+import model.UserModel;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
