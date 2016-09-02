@@ -1,3 +1,5 @@
+package controller;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -9,7 +11,7 @@ import java.util.ArrayList;
 /**
  * Created by Vincent on 8/31/2016.
  */
-@WebServlet(name = "LoginServlet")
+@WebServlet(name = "controller.LoginServlet")
 public class LoginServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String username = request.getParameter("username");
@@ -17,7 +19,7 @@ public class LoginServlet extends HttpServlet {
 
         User user = findUser(username);
         if (user == null) {
-            System.out.println("User not found");
+            System.out.println("model.User not found");
         } else {
             System.out.println(user.getUsersname() + " found");
             if (checkPassword(user, password)) {

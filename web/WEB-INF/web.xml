@@ -10,16 +10,16 @@
 
     <servlet>
         <servlet-name>TestServlet</servlet-name>
-        <servlet-class>TestServlet</servlet-class>
+        <servlet-class>controller.TestServlet</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>TestServlet</servlet-name>
-        <url-pattern>/TestServlet</url-pattern>  <!-- This is the URL of the servlet. -->
+        <url-pattern>/controller.TestServlet</url-pattern>  <!-- This is the URL of the servlet. -->
     </servlet-mapping>
 
     <servlet>
         <servlet-name>RegisterServlet</servlet-name>
-        <servlet-class>RegisterServlet</servlet-class>
+        <servlet-class>controller.RegisterServlet</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>RegisterServlet</servlet-name>
@@ -28,7 +28,7 @@
 
     <servlet>
         <servlet-name>LoginServlet</servlet-name>
-        <servlet-class>LoginServlet</servlet-class>
+        <servlet-class>controller.LoginServlet</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>LoginServlet</servlet-name>

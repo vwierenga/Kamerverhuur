@@ -1,3 +1,5 @@
+package controller;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -8,8 +10,8 @@ import java.io.IOException;
 /**
  * Created by Vincent on 8/29/2016.
  */
-@WebServlet(name = "ShowPersonsServlet")
-public class ShowPersonsServlet extends HttpServlet {
+@WebServlet(name = "controller.ShowRoomsServlet")
+public class ShowRoomsServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
     }
