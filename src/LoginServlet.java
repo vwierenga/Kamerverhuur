@@ -15,12 +15,12 @@ public class LoginServlet extends HttpServlet {
         String username = request.getParameter("username");
         String password = request.getParameter("password");
 
-        Gebruiker gebruiker = findGebruiker(username);
-        if (gebruiker == null) {
+        User user = findUser(username);
+        if (user == null) {
             System.out.println("User not found");
         } else {
-            System.out.println(gebruiker.getGebruikersnaam() + " found");
-            if (checkPassword(gebruiker, password)) {
+            System.out.println(user.getUsersname() + " found");
+            if (checkPassword(user, password)) {
 
             }
         }
@@ -30,19 +30,19 @@ public class LoginServlet extends HttpServlet {
 
     }
 
-    private Gebruiker findGebruiker(String username) {
-        ArrayList<Gebruiker> gebruikers = GebruikerModel.getInstance().getGebruikers();
-        for (Gebruiker gebruiker : gebruikers) {
-            if (gebruiker.getGebruikersnaam().equalsIgnoreCase(username)) {
-                return gebruiker;
+    private User findUser(String username) {
+        ArrayList<User> users = UserModel.getInstance().getUsers();
+        for (User user : users) {
+            if (user.getUsersname().equalsIgnoreCase(username)) {
+                return user;
             }
         }
 
         return null;
     }
 
-    private boolean checkPassword(Gebruiker gebruiker, String password) {
-        return (gebruiker.getWachtwoord().equals(password));
+    private boolean checkPassword(User user, String password) {
+        return (user.getPassword().equals(password));
     }
 
 
