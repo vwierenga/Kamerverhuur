@@ -30,4 +30,14 @@ public class UserModel {
         users.add(new User("tenant", "tenant", true));
         users.add(new User("owner", "owner", false));
     }
+
+    public User findUser(String username) {
+        for (User user : users) {
+            if (user.getUsersname().equalsIgnoreCase(username)) {
+                return user;
+            }
+        }
+
+        return null;
+    }
 }

@@ -1,5 +1,8 @@
 package controller;
 
+import model.User;
+import model.UserModel;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -13,7 +16,28 @@ import java.io.IOException;
 @WebServlet("/controller.RegisterServlet")
 public class RegisterServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        System.out.println("register post");
+        //System.out.println("register post");
+
+        String username = request.getParameter("gebruikersnaam");
+
+        User user = UserModel.getInstance().findUser(username);
+        if (user == null) {
+            String password = request.getParameter("wachtwoord");
+            String type = request.getParameter("type");
+
+            if (type.equals("owner")) {
+                UserModel.getInstance().addUser(new User(username, password, true));
+            } else {
+                UserModel.getInstance().addUser(new User(username, password, false));
+            }
+
+        } else {
+            //fuckoff
+        }
+
+
+
+
 
     }
 

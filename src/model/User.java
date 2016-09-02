@@ -6,12 +6,12 @@ package model;
 public class User {
     private String username;
     private String password;
-    private boolean tenant; //if tenant is false then the user is an owner.
+    private boolean owner; //if owner is false then the user is an tenant.
 
-    public User(String username, String password, boolean tenant) {
+    public User(String username, String password, boolean owner) {
         this.username = username;
         this.password = password;
-        this.tenant = tenant;
+        this.owner = owner;
     }
 
     public String getUsersname() {
@@ -22,8 +22,8 @@ public class User {
         return password;
     }
 
-    public boolean isTenant() {
-        return tenant;
+    public boolean isOwner() {
+        return owner;
     }
 }
 
