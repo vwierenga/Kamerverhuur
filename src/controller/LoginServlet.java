@@ -8,6 +8,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
@@ -43,11 +44,14 @@ public class LoginServlet extends HttpServlet {
                 "<!--created by TeamRetard's code--> \n" +
                 "</html> \n");
                 //out.write("INGELOGD!!!!!!!!!!!");
-                //niks
+
+                HttpSession session = request.getSession();
+                session.setAttribute("login", new Boolean(true));  //Set false when logging out.
+
+                //response.sendRedirect("");
 
 
-
-                //ingeloggen
+                //HttpSession session = request.getSession(false); maakt geen session aan
             } else {
                 System.out.println("Fout ww.");
                 response.sendRedirect("fouteinlog.html");
@@ -63,7 +67,7 @@ public class LoginServlet extends HttpServlet {
         return (user.getPassword().equals(password));
     }
 
-    public User findUser(String username) {
+    private User findUser(String username) {
         ArrayList<User> users = (ArrayList<User>) getServletContext().getAttribute("users");
         for (User user : users) {
             if (user.getUsersname().equalsIgnoreCase(username)) {
