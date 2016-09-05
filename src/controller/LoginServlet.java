@@ -43,6 +43,7 @@ public class LoginServlet extends HttpServlet {
                 "<!--created by TeamRetard--> \n" +
                 "</html> \n");
                 //out.write("INGELOGD!!!!!!!!!!!");
+                //niks
 
                 //ingeloggen
             } else {
