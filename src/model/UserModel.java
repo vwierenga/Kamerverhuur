@@ -27,8 +27,10 @@ public class UserModel {
     }
 
     private void createTestUsers() {
-        users.add(new User("tenant", "tenant", true));
-        users.add(new User("owner", "owner", false));
+        users.add(new User("tenant", "tenant", false));
+        users.add(new User("owner", "owner", true));
+        users.add(new User("admin", "admin", true));
+        users.add(new User("user", "user", false));
     }
 
     public User findUser(String username) {
