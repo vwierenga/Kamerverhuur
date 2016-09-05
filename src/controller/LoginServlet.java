@@ -37,10 +37,10 @@ public class LoginServlet extends HttpServlet {
                 "<title>Tetten</title> \n" +
                 "</head> \n" +
                 "<body> \n" +
-                "Uw gebruikersnaam en wachtwoord is <font color = 'chucknorris'>correct</font>! Get gud scrub!<br> <br> \n" +
+                "Uw gebruikersnaam en wachtwoord is <font color = 'chucknorris'>correct</font>! Victory achieved<br> <br> \n" +
                 "<a href='login.html'>login</a> \n" +
                 "</body> \n" +
-                "<!--created by TeamRetard--> \n" +
+                "<!--created by TeamRetard's code--> \n" +
                 "</html> \n");
                 //out.write("INGELOGD!!!!!!!!!!!");
                 //niks

@@ -27,11 +27,17 @@ public class RegisterServlet extends HttpServlet {
 
             if (type.equals("owner")) {
                 UserModel.getInstance().addUser(new User(username, password, true));
+                System.out.println(username + " added as owner");
             } else {
                 UserModel.getInstance().addUser(new User(username, password, false));
+                System.out.println(username + " added as tenant");
             }
 
         } else {
+            System.out.println("user already exists");
+            System.out.println("git gud faggot");
+            System.out.println("n00b");
+            System.out.println("pleb");
             //fuckoff
         }
 
