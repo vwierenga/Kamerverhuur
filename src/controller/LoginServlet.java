@@ -21,7 +21,7 @@ public class LoginServlet extends HttpServlet {
         String username = request.getParameter("username");
         String password = request.getParameter("password");
 
-        User user = UserModel.getInstance().findUser(username);
+        User user = findUser(username);
 
         if (user == null) {
             System.out.println("User not found");
@@ -45,8 +45,11 @@ public class LoginServlet extends HttpServlet {
                 //out.write("INGELOGD!!!!!!!!!!!");
                 //niks
 
+
+
                 //ingeloggen
             } else {
+                System.out.println("Fout ww.");
                 response.sendRedirect("fouteinlog.html");
             }
         }
@@ -58,6 +61,17 @@ public class LoginServlet extends HttpServlet {
 
     private boolean checkPassword(User user, String password) {
         return (user.getPassword().equals(password));
+    }
+
+    public User findUser(String username) {
+        ArrayList<User> users = (ArrayList<User>) getServletContext().getAttribute("users");
+        for (User user : users) {
+            if (user.getUsersname().equalsIgnoreCase(username)) {
+                return user;
+            }
+        }
+
+        return null;
     }
 
 
