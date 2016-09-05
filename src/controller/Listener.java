@@ -4,12 +4,18 @@ import model.User;
 
 import javax.servlet.ServletContextEvent;
 import javax.servlet.ServletContextListener;
+import javax.servlet.annotation.WebListener;
 import java.util.ArrayList;
 
 /**
  * Created by Vincent on 9/5/2016.
  */
+@WebListener()
 public class Listener implements ServletContextListener {
+
+
+    public Listener() {
+    }
 
     @Override
     public void contextInitialized(ServletContextEvent servletContextEvent) {
