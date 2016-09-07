@@ -34,7 +34,7 @@ public class LoginServlet extends HttpServlet {
                 out.println(
 
                 "<head> \n" +
-                "<title>Tetten</title> \n" +
+                "<title>Tetten - Kamerverhuur</title> \n" +
                 "</head> \n" +
                 "<body> \n" +
                 "Uw gebruikersnaam en wachtwoord is <font color = 'chucknorris'>correct</font>! Victory achieved<br> <br> \n" +

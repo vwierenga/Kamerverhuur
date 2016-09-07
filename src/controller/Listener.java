@@ -1,5 +1,6 @@
 package controller;
 
+import model.Room;
 import model.User;
 
 import javax.servlet.ServletContextEvent;
@@ -26,6 +27,11 @@ public class Listener implements ServletContextListener {
         users.add(new User("user", "user", false));
 
         servletContextEvent.getServletContext().setAttribute("users", users);
+
+        ArrayList<Room> rooms = new ArrayList<>();
+        rooms.add(new Room(15, 320, "randomStreet", users.get(1)));
+
+        servletContextEvent.getServletContext().setAttribute("rooms", rooms);
     }
 
     @Override
