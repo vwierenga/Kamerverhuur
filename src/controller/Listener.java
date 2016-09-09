@@ -29,7 +29,7 @@ public class Listener implements ServletContextListener {
         servletContextEvent.getServletContext().setAttribute("users", users);
 
         ArrayList<Room> rooms = new ArrayList<>();
-        rooms.add(new Room(15, 320, "randomStreet", users.get(1)));
+        rooms.add(new Room(15, 320, "randomStreet", "randomCity", users.get(1)));
 
         servletContextEvent.getServletContext().setAttribute("rooms", rooms);
     }

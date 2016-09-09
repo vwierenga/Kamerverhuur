@@ -7,12 +7,14 @@ public class Room {
     private int size;
     private double maxPrice;
     private String address;
+    private String city;
     private User owner;
 
-    public Room(int size, double maxPrice, String address, User owner) {
+    public Room(int size, double maxPrice, String address, String city, User owner) {
         this.size = size;
         this.maxPrice = maxPrice;
         this.address = address;
+        this.city = city;
         this.owner = owner;
     }
 }

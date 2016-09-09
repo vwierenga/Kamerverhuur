@@ -11,7 +11,7 @@ import java.io.IOException;
 /**
  * Created by Vincent on 8/29/2016.
  */
-@WebServlet("/controller.SearchRoomServlet")
+@WebServlet("/SearchRoomServlet")
 public class SearchRoomServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 

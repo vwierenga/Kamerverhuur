@@ -29,6 +29,17 @@ public class LoginServlet extends HttpServlet {
         } else {
             System.out.println(user.getUsersname() + " found");
             if (checkPassword(user, password)) {
+
+                HttpSession session = request.getSession();
+                session.setAttribute("login", new Boolean(true));  //Set false when logging out.
+
+                if(user.isOwner()) {
+
+                } else {
+                    getServletContext().getRequestDispatcher("/WEB-INF/huurder.html").forward(request, response);
+                }
+
+                /*
                 response.setContentType("text/html");
                 PrintWriter out = response.getWriter();
                 out.println(
@@ -44,13 +55,8 @@ public class LoginServlet extends HttpServlet {
                 "</html> \n");
                 //out.write("INGELOGD!!!!!!!!!!!");
 
-                HttpSession session = request.getSession();
-                session.setAttribute("login", new Boolean(true));  //Set false when logging out.
-
+                */
                 //response.sendRedirect("");
-
-
-                //HttpSession session = request.getSession(false); maakt geen session aan
             } else {
                 System.out.println("Fout ww.");
                 response.sendRedirect("fouteinlog.html");
