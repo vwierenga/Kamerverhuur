@@ -39,11 +39,11 @@
     </servlet-mapping>
 
     <servlet>
-        <servlet-name>SearchRoomServlet</servlet-name>
-        <servlet-class>controller.SearchRoomServlet</servlet-class>
+        <servlet-name>ShowRoomsServlet</servlet-name>
+        <servlet-class>controller.ShowRoomsServlet</servlet-class>
     </servlet>
     <servlet-mapping>
-        <servlet-name>SearchRoomServlet</servlet-name>
-        <url-pattern>/searchRoom</url-pattern>
+        <servlet-name>ShowRoomsServlet</servlet-name>
+        <url-pattern>/showRooms</url-pattern>
     </servlet-mapping>
 </web-app>
