@@ -25,13 +25,13 @@ public class ShowRoomsServlet extends HttpServlet {
             User currentUser = (User) session.getAttribute("currentUser");
 
             if(currentUser.isOwner()) {
-                printRooms(response, findRooms(currentUser));
+                printRooms(response, findRooms(currentUser), true);
             } else{
                 int size = Integer.parseInt(request.getParameter("size"));
                 int price = Integer.parseInt(request.getParameter("price"));
                 String city = request.getParameter("city");
                 if(city != null){
-                    printRooms(response, findRooms(size, price, city));
+                    printRooms(response, findRooms(size, price, city), false);
                 } else {
                     System.out.println("Null city");
                     response.sendRedirect("/user.html");
@@ -48,6 +48,8 @@ public class ShowRoomsServlet extends HttpServlet {
                 getServletContext().getRequestDispatcher("/WEB-INF/addroom.html").forward(request, response);
             } else if("Opnieuw zoeken".equals(action)) {
                 getServletContext().getRequestDispatcher("/WEB-INF/huurder.html").forward(request, response);
+            } else if ("Gebruikers".equals(action)) {
+                getServletContext().getRequestDispatcher("/showPersons").forward(request, response);
             } else if ("Uitloggen".equals(action)) {
                 session.setAttribute("login", new Boolean(false));  //Set false when logging out.
                 getServletContext().getRequestDispatcher("/login.html").forward(request, response);
@@ -55,7 +57,7 @@ public class ShowRoomsServlet extends HttpServlet {
         }
     }
 
-    private void printRooms(HttpServletResponse response, ArrayList<Room> rooms) throws IOException {
+    private void printRooms(HttpServletResponse response, ArrayList<Room> rooms, boolean owner) throws IOException {
         int kamernr = 0;
         response.setContentType("text/html");
         PrintWriter out = response.getWriter();
@@ -74,11 +76,22 @@ public class ShowRoomsServlet extends HttpServlet {
         } else {
             out.println("<font color = 'chucknorris'>U heeft geen kamers :(</font><br> <br> \n");
         }
-        out.println("<form action=\"/showRooms\" method=\"GET\"> \n" +
-                "<input type=\"submit\" name=\"action\" value=\"Kamer toevoegen\"> \n" +
-                "<input type=\"submit\" name=\"action\" value=\"Uitloggen\"> \n" +
-                "</form> \n" +
-                "</body> \n" +
+
+        if(owner) {
+            out.println("<form action=\"/showRooms\" method=\"GET\"> \n" +
+                    "<input type=\"submit\" name=\"action\" value=\"Kamer toevoegen\"> \n" +
+                    "<input type=\"submit\" name=\"action\" value=\"Gebruikers\"> \n" +
+                    "<input type=\"submit\" name=\"action\" value=\"Uitloggen\"> \n" +
+                    "</form> \n");
+        } else {
+            out.println("<form action=\"/showRooms\" method=\"GET\"> \n" +
+                    "<input type=\"submit\" name=\"action\" value=\"Opnieuw zoeken\"> \n" +
+                    "<input type=\"submit\" name=\"action\" value=\"Gebruikers\"> \n" +
+                    "<input type=\"submit\" name=\"action\" value=\"Uitloggen\"> \n" +
+                    "</form> \n");
+        }
+
+        out.println("</body> \n" +
                 "<!--created by TeamRetard's code--> \n" +
                 "</html> \n");
     }
