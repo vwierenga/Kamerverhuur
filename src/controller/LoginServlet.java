@@ -1,5 +1,6 @@
 package controller;
 
+import model.Room;
 import model.User;
 
 import javax.servlet.ServletException;
@@ -34,29 +35,10 @@ public class LoginServlet extends HttpServlet {
                 session.setAttribute("login", new Boolean(true));  //Set false when logging out.
 
                 if(user.isOwner()) {
-
+                    printRooms(response, user);
                 } else {
                     getServletContext().getRequestDispatcher("/WEB-INF/huurder.html").forward(request, response);
                 }
-
-                /*
-                response.setContentType("text/html");
-                PrintWriter out = response.getWriter();
-                out.println(
-
-                "<head> \n" +
-                "<title>Tetten - Kamerverhuur</title> \n" +
-                "</head> \n" +
-                "<body> \n" +
-                "Uw gebruikersnaam en wachtwoord is <font color = 'chucknorris'>correct</font>! Victory achieved<br> <br> \n" +
-                "<a href='login.html'>login</a> \n" +
-                "</body> \n" +
-                "<!--created by TeamRetard's code--> \n" +
-                "</html> \n");
-                //out.write("INGELOGD!!!!!!!!!!!");
-
-                */
-                //response.sendRedirect("");
             } else {
                 System.out.println("Fout ww.");
                 response.sendRedirect("fouteinlog.html");
@@ -81,6 +63,53 @@ public class LoginServlet extends HttpServlet {
         }
 
         return null;
+    }
+
+    private ArrayList<Room> findRooms(User user) {
+        ArrayList<Room> rooms = new ArrayList<>();
+        for (Room room : (ArrayList<Room>) getServletContext().getAttribute("rooms")) {
+            if (room.getOwner() == user) {
+                rooms.add(room);
+            }
+        }
+        return rooms;
+    }
+
+    private void printRooms(HttpServletResponse response, User user) throws IOException {
+        ArrayList<Room> rooms = findRooms(user);
+        int kamernr = 0;
+        if (rooms.size() > 0) {
+            kamernr++;
+            response.setContentType("text/html");
+            PrintWriter out = response.getWriter();
+            out.println(
+                    "<head> \n" +
+                    "<title>" + user.getUsersname() + "'s Kamers</title> \n" +
+                    "</head> \n" +
+                    "<body> \n");
+            for(Room room : rooms) {
+                out.println("Kamer " + kamernr + "<br> \n" +
+                        "Grootte:  " + room.getSize() + "m2 <br> \n" +
+                        "Prijs:  " + room.getPrice() + " euro <br> \n" +
+                        "Adres: " + room.getAddress() + " " + room.getCity() + "<br> <br>\n");
+            }
+            out.println("<a href='login.html'>login</a> \n" +
+                    "</body> \n" +
+                    "<!--created by TeamRetard's code--> \n" +
+                    "</html> \n");
+        } else {
+            response.setContentType("text/html");
+            PrintWriter out = response.getWriter();
+            out.println("<head> \n" +
+                    "<title>" + user.getUsersname() + "'s Kamers</title> \n" +
+                    "</head> \n" +
+                    "<body> \n" +
+                    "<font color = 'chucknorris'>U heeft geen kamers :(</font><br> <br> \n" +
+                    "<a href='login.html'>login</a> \n" +
+                    "</body> \n" +
+                    "<!--created by TeamRetard's code--> \n" +
+                    "</html> \n");
+        }
     }
 
 

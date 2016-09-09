@@ -19,7 +19,15 @@ import java.util.ArrayList;
 @WebServlet("/SearchRoomServlet")
 public class SearchRoomServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        String action = request.getParameter("action");
 
+        if ("Opnieuw zoeken".equals(action)) {
+            getServletContext().getRequestDispatcher("/WEB-INF/huurder.html").forward(request, response);
+        } else if ("Uitloggen".equals(action)) {
+            HttpSession session = request.getSession();
+            session.setAttribute("login", new Boolean(false));  //Set false when logging out.
+            getServletContext().getRequestDispatcher("/login.html").forward(request, response);
+        }
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -48,20 +56,25 @@ public class SearchRoomServlet extends HttpServlet {
                                 "Prijs:  " + room.getPrice() + " euro <br> \n" +
                                 "Adres: " + room.getAddress() + " " + room.getCity() + "<br> <br>\n");
                     }
-                    out.println("<a href='login.html'>login</a> \n" +
+                    out.println("<form action=\"/searchRoom\" method=\"Post\"> \n" +
+                            "<input type=\"submit\" name=\"action\" value=\"Opnieuw zoeken\"> \n" +
+                            "<input type=\"submit\" name=\"action\" value=\"Uitloggen\"> \n" +
+                            "</form> \n" +
                             "</body> \n" +
                             "<!--created by TeamRetard's code--> \n" +
                             "</html> \n");
                 } else {
                     response.setContentType("text/html");
                     PrintWriter out = response.getWriter();
-                    out.println(
-                            "<head> \n" +
+                    out.println("<head> \n" +
                             "<title>Geen kamers gevonden</title> \n" +
                             "</head> \n" +
                             "<body> \n" +
                             "<font color = 'chucknorris'>Geen kamers gevonden!</font><br> <br> \n" +
-                            "<a href='login.html'>login</a> \n" +
+                            "<form action=\"/searchRoom\" method=\"Post\"> \n" +
+                            "<input type=\"submit\" name=\"action\" value=\"Opnieuw zoeken\"> \n" +
+                            "<input type=\"submit\" name=\"action\" value=\"Uitloggen\"> \n" +
+                            "</form> \n" +
                             "</body> \n" +
                             "<!--created by TeamRetard's code--> \n" +
                             "</html> \n");
@@ -70,13 +83,14 @@ public class SearchRoomServlet extends HttpServlet {
         } else {
             response.setContentType("text/html");
             PrintWriter out = response.getWriter();
-            out.println(
-                    "<head> \n" +
+            out.println("<head> \n" +
                     "<title>Niet ingelogd</title> \n" +
                     "</head> \n" +
                     "<body> \n" +
-                    "U bent <font color = 'chucknorris'>niet ingelogd!</font><br> \n" +
-                    "Log <a href='login.html'>hier</a> aub in. <br><br> \n" +
+                    "U bent <font color = 'chucknorris'>niet ingelogd!</font><br> \n" + "<form action=\"/searchRoom\" method=\"Post\"> \n" +
+                    "<input type=\"submit\" name=\"action\" value=\"Opnieuw zoeken\"> \n" +
+                    "<input type=\"submit\" name=\"action\" value=\"Uitloggen\"> \n" +
+                    "</form> \n" +
                     "</body> \n" +
                     "<!--created by TeamRetard's code--> \n" +
                     "</html> \n");
