@@ -40,6 +40,7 @@ public class ShowRoomsServlet extends HttpServlet {
         }
     }
 
+    //Website navigation
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String action = request.getParameter("action");
         HttpSession session = request.getSession(false);
@@ -57,6 +58,13 @@ public class ShowRoomsServlet extends HttpServlet {
         }
     }
 
+    /**
+     *
+     * @param response HttpServletResponse needed to generate the HTML page
+     * @param rooms Arraylist of all rooms to display
+     * @param owner boolean true if the current user is an owner, needed to display the navigation buttons
+     * @throws IOException
+     */
     private void printRooms(HttpServletResponse response, ArrayList<Room> rooms, boolean owner) throws IOException {
         int kamernr = 0;
         response.setContentType("text/html");
@@ -96,6 +104,13 @@ public class ShowRoomsServlet extends HttpServlet {
                 "</html> \n");
     }
 
+    /**
+     * Find rooms by a few requirements.
+     * @param size The minimum size of the room.
+     * @param price The maximum price of the room.
+     * @param city The city the room should be located in.
+     * @return Arraylist with rooms that meet the requirements
+     */
     private ArrayList<Room> findRooms(int size, int price, String city) {
         ArrayList<Room> rooms = new ArrayList<>();
         for (Room room : (ArrayList<Room>) getServletContext().getAttribute("rooms")) {
@@ -107,6 +122,11 @@ public class ShowRoomsServlet extends HttpServlet {
         return rooms;
     }
 
+    /**
+     * Find room by owner.
+     * @param user The owner of the rooms we're looking for.
+     * @return Arraylist of rooms with the user as owner
+     */
     private ArrayList<Room> findRooms(User user) {
         ArrayList<Room> rooms = new ArrayList<>();
         for (Room room : (ArrayList<Room>) getServletContext().getAttribute("rooms")) {

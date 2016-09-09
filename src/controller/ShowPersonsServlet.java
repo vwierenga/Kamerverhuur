@@ -17,6 +17,12 @@ import java.util.Date;
  */
 @WebServlet("/controller.ShowPersonsServlet")
 public class ShowPersonsServlet extends HttpServlet {
+    @Override
+    public void init() throws ServletException {
+        super.init();
+        //Not used because it does not have the request and response variables
+    }
+
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         doGet(request, response);
     }
@@ -43,11 +49,20 @@ public class ShowPersonsServlet extends HttpServlet {
         }
     }
 
+    /**
+     * Displays the users on screen and creates two cookies
+     * @param request HttpServletRequest needed for cookies
+     * @param response HttpServletResponse needed for cookies and displaying the content
+     * @param users Arraylist of all users to display
+     * @param owner boolean true if the currentuser is an owner, needed to display the navigation buttons
+     * @throws IOException
+     */
     private void printUsers(HttpServletRequest request, HttpServletResponse response, ArrayList<User> users, boolean owner) throws IOException {
         Cookie[] cookies = request.getCookies();
         Cookie lastVisitDateCookie = null;
         Cookie timesVisitedCookie = null;
 
+        //Check if the cookies already exist
         for (Cookie cookie : cookies) {
             if (cookie.getName().equals("timesVisited")) {
                 timesVisitedCookie = cookie;
@@ -59,6 +74,7 @@ public class ShowPersonsServlet extends HttpServlet {
         DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
         Date date = new Date();
 
+        //Create new cookies if they don't exist yet & Save data in the cookies.
         if (lastVisitDateCookie == null) {
             lastVisitDateCookie = new Cookie("lastVisitDate", dateFormat.format(date));
         } else {
@@ -71,9 +87,11 @@ public class ShowPersonsServlet extends HttpServlet {
             timesVisitedCookie.setValue(timesVisited + "");
         }
 
+        //Save the cookies
         response.addCookie(lastVisitDateCookie);
         response.addCookie(timesVisitedCookie);
 
+        //Generate the HTML page
         response.setContentType("text/html");
         PrintWriter out = response.getWriter();
         out.println("<head> \n" +
