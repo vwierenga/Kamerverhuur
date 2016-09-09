@@ -33,15 +33,15 @@ public class LoginServlet extends HttpServlet {
 
                 HttpSession session = request.getSession();
                 session.setAttribute("login", new Boolean(true));  //Set false when logging out.
-                session.setAttribute("currentUser", user);
+                session.setAttribute("currentUser", user); //Saves the current user for later use.
 
+                //Send the user to the right page.
                 if(user.isOwner()) {
                     getServletContext().getRequestDispatcher("/showRooms").forward(request, response);
                 } else {
                     getServletContext().getRequestDispatcher("/WEB-INF/huurder.html").forward(request, response);
                 }
             } else {
-                System.out.println("Fout ww.");
                 response.sendRedirect("fouteinlog.html");
             }
         }
@@ -51,10 +51,21 @@ public class LoginServlet extends HttpServlet {
 
     }
 
+    /**
+     * Check if the password is correct
+     * @param user the username of the user who wants to log in.
+     * @param password the password of the user who wants to log in.
+     * @return true if the password is correct.
+     */
     private boolean checkPassword(User user, String password) {
         return (user.getPassword().equals(password));
     }
 
+    /**
+     * Checks if the user already exists
+     * @param username the username of the user we're looking for.
+     * @return a user if the user exists or null if the user doesn't exist.
+     */
     private User findUser(String username) {
         ArrayList<User> users = (ArrayList<User>) getServletContext().getAttribute("users");
         for (User user : users) {

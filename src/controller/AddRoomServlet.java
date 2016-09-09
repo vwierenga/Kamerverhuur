@@ -20,10 +20,12 @@ public class AddRoomServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String action = request.getParameter("action");
         HttpSession session = request.getSession(false);
+        //Checks if you're logged in.
         if (session != null && session.getAttribute("login") != null && (Boolean) session.getAttribute("login")) {
             if ("Toevoegen".equals(action)) {
                 User currentUser = (User) session.getAttribute("currentUser");
                 if (currentUser.isOwner()) {
+                    //adds the room to the arraylist.
                     int size = Integer.parseInt(request.getParameter("size"));
                     int price = Integer.parseInt(request.getParameter("price"));
                     String address = request.getParameter("address");
@@ -35,6 +37,7 @@ public class AddRoomServlet extends HttpServlet {
                     getServletContext().getRequestDispatcher("/showRooms").forward(request, response);
                 }
             } else if("Kamer Overzicht".equals(action)) {
+                //returns you to showRooms in case you changed your mind.
                 getServletContext().getRequestDispatcher("/showRooms").forward(request, response);
             }
         }

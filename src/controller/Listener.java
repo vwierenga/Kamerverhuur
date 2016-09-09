@@ -20,6 +20,7 @@ public class Listener implements ServletContextListener {
 
     @Override
     public void contextInitialized(ServletContextEvent servletContextEvent) {
+        //Gebruikers aanmaken
         ArrayList<User> users = new ArrayList<>();
         users.add(new User("tenant", "tenant", false));
         users.add(new User("owner", "owner", true));
@@ -28,6 +29,7 @@ public class Listener implements ServletContextListener {
 
         servletContextEvent.getServletContext().setAttribute("users", users);
 
+        //Kamers aanmaken
         ArrayList<Room> rooms = new ArrayList<>();
         rooms.add(new Room(15, 320, "randomStreet", "randomCity", users.get(1)));
 
