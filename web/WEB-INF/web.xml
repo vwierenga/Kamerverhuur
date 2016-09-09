@@ -46,4 +46,13 @@
         <servlet-name>ShowPersonsServlet</servlet-name>
         <url-pattern>/showPersons</url-pattern>
     </servlet-mapping>
+
+    <servlet>
+        <servlet-name>AddRoomServlet</servlet-name>
+        <servlet-class>controller.AddRoomServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>AddRoomServlet</servlet-name>
+        <url-pattern>/addRoom</url-pattern>
+    </servlet-mapping>
 </web-app>

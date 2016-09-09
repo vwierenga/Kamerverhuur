@@ -66,8 +66,8 @@ public class ShowRoomsServlet extends HttpServlet {
                 "</head> \n" +
                 "<body> \n");
         if (rooms.size() > 0) {
-            kamernr++;
             for(Room room : rooms) {
+                kamernr++;
                 out.println("Kamer " + kamernr + "<br> \n" +
                         "Grootte:  " + room.getSize() + "m2 <br> \n" +
                         "Prijs:  " + room.getPrice() + " euro <br> \n" +
