@@ -5,16 +5,36 @@ package model;
  */
 public class Room {
     private int size;
-    private double maxPrice;
+    private double price;
     private String address;
     private String city;
     private User owner;
 
-    public Room(int size, double maxPrice, String address, String city, User owner) {
+    public Room(int size, double price, String address, String city, User owner) {
         this.size = size;
-        this.maxPrice = maxPrice;
+        this.price = price;
         this.address = address;
         this.city = city;
         this.owner = owner;
+    }
+
+    public int getSize() {
+        return size;
+    }
+
+    public double getPrice() {
+        return price;
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public String getCity() {
+        return city;
+    }
+
+    public User getOwner() {
+        return owner;
     }
 }
