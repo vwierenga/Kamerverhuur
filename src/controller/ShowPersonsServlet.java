@@ -4,13 +4,13 @@ import model.User;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
-import javax.servlet.http.HttpServlet;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
+import javax.servlet.http.*;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 
 /**
  * Created by Vincent on 8/29/2016.
@@ -18,7 +18,7 @@ import java.util.ArrayList;
 @WebServlet("/controller.ShowPersonsServlet")
 public class ShowPersonsServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
+        doGet(request, response);
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -39,17 +39,49 @@ public class ShowPersonsServlet extends HttpServlet {
             User currentUser = (User) session.getAttribute("currentUser");
             ArrayList<User> users = (ArrayList<User>) getServletContext().getAttribute("users");
 
-            printUsers(response, users, currentUser.isOwner());
+            printUsers(request, response, users, currentUser.isOwner());
         }
     }
 
-    private void printUsers(HttpServletResponse response, ArrayList<User> users, boolean owner) throws IOException {
+    private void printUsers(HttpServletRequest request, HttpServletResponse response, ArrayList<User> users, boolean owner) throws IOException {
+        Cookie[] cookies = request.getCookies();
+        Cookie lastVisitDateCookie = null;
+        Cookie timesVisitedCookie = null;
+
+        for (Cookie cookie : cookies) {
+            if (cookie.getName().equals("timesVisited")) {
+                timesVisitedCookie = cookie;
+            } else if (cookie.getName().equals("lastVisitDate")) {
+                lastVisitDateCookie = cookie;
+            }
+        }
+
+        DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
+        Date date = new Date();
+
+        if (lastVisitDateCookie == null) {
+            lastVisitDateCookie = new Cookie("lastVisitDate", dateFormat.format(date));
+        } else {
+            lastVisitDateCookie.setValue(dateFormat.format(date));
+        }
+        if (timesVisitedCookie == null) {
+            timesVisitedCookie = new Cookie("timesVisited", "" + 1);
+        } else {
+            int timesVisited = Integer.parseInt(timesVisitedCookie.getValue()) + 1;
+            timesVisitedCookie.setValue(timesVisited + "");
+        }
+
+        response.addCookie(lastVisitDateCookie);
+        response.addCookie(timesVisitedCookie);
+
         response.setContentType("text/html");
         PrintWriter out = response.getWriter();
         out.println("<head> \n" +
                 "<title>Gevonden Kamers</title> \n" +
                 "</head> \n" +
-                "<body> \n");
+                "<body> \n" +
+                "Laatste bezoek: " + lastVisitDateCookie.getValue() + " \n" +
+                "Aantal keren bezocht: " + timesVisitedCookie.getValue() + "<br><br> \n");
         if (users.size() > 0) {
             for(User user : users) {
                 out.println("Naam:  " + user.getUsersname() + " <br> \n" +
@@ -62,13 +94,11 @@ public class ShowPersonsServlet extends HttpServlet {
         if(owner) {
             out.println("<form action=\"/showPersons\" method=\"GET\"> \n" +
                     "<input type=\"submit\" name=\"action\" value=\"Kamer toevoegen\"> \n" +
-                    "<input type=\"submit\" name=\"action\" value=\"Gebruikers\"> \n" +
                     "<input type=\"submit\" name=\"action\" value=\"Uitloggen\"> \n" +
                     "</form> \n");
         } else {
-            out.println("<form action=\"/showUsers\" method=\"GET\"> \n" +
+            out.println("<form action=\"/showPersons\" method=\"GET\"> \n" +
                     "<input type=\"submit\" name=\"action\" value=\"Kamer zoeken\"> \n" +
-                    "<input type=\"submit\" name=\"action\" value=\"Gebruikers\"> \n" +
                     "<input type=\"submit\" name=\"action\" value=\"Uitloggen\"> \n" +
                     "</form> \n");
         }
